@@ -86,25 +86,11 @@ This approach prevents AI hallucinations by grounding responses in actual compan
 | **LLM Framework** | LangChain | Orchestration and RAG pipeline |
 | **Vector Database** | ChromaDB | Embeddings storage and retrieval |
 | **Embeddings** | HuggingFace (all-MiniLM-L6-v2) | Document and query embeddings |
-| **LLM** | OpenAI / Ollama (Gemma 4B) | Response generation |
+| **LLM** | OpenAI / Ollama (Gemma3 4B) | Response generation |
 | **UI Framework** | Gradio | Web interface |
 | **Text Processing** | LangChain Text Splitters | Document chunking |
 
-### Key Dependencies
 
-```
-langchain >= 1.0.5
-langchain-openai >= 1.0.2
-langchain-chroma >= 1.0.0
-langchain-huggingface >= 1.0.1
-langchain-ollama >= 1.0.0
-chromadb >= 1.3.4
-gradio >= 5.49.1
-sentence-transformers >= 5.1.2
-python-dotenv >= 1.2.1
-```
-
----
 
 ## 📁 Project Structure
 
