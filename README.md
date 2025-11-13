@@ -136,10 +136,8 @@ RAG-Project-v1/
 │   ├── experiments/                  # Jupyter notebooks for testing
 │   │   ├── experiment.ipynb
 │   │   └── vector_db/                # Experimental vector stores
-│   │
-│   └── evaluation/                   # RAG evaluation scripts
-│
-└── main.py                           # Simple entry point
+
+
 ```
 
 ---
