@@ -7,7 +7,7 @@
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-1.3-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-**A Retrieval-Augmented Generation (RAG) system for intelligent enterprise knowledge management**
+**My Retrieval-Augmented Generation (RAG) system v1 for intelligent enterprise knowledge management**
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Architecture](#-architecture) • [Documentation](#-documentation)
 
