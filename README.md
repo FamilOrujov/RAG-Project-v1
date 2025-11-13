@@ -112,47 +112,65 @@ python-dotenv >= 1.2.1
 RAG-Project-v1/
 ├── README.md                          # This file
 ├── requirements.txt                   # Python dependencies
-├── pyproject.toml                     # Project configuration
+├── pyproject.toml                     # Project configuration (uv)
+├── uv.lock                            # Dependency lock file
 ├── .gitignore                         # Git ignore rules
-├── .env                              # Environment variables (create this)
+├── .env                               # Environment variables (create this)
 │
-├── root-project/
-│   ├── app.py                        # Main Gradio web application
-│   │
-│   ├── implementation/
-│   │   ├── ingest.py                 # Document ingestion & embedding creation
-│   │   └── answer.py                 # RAG pipeline & question answering
-│   │
-│   ├── knowledge_base/               # Source documents
-│   │   ├── company/                  # Company information (4 docs)
-│   │   │   ├── about.md
-│   │   │   ├── careers.md
-│   │   │   ├── culture.md
-│   │   │   └── overview.md
-│   │   │
-│   │   ├── products/                 # Product documentation (5 docs)
-│   │   │   ├── SynapseEngine.md
-│   │   │   ├── ClarityLens.md
-│   │   │   ├── Continuum.md
-│   │   │   ├── EchoSphere.md
-│   │   │   └── Guardian.md
-│   │   │
-│   │   ├── employees/                # Employee profiles (10 docs)
-│   │   │   └── [10 employee profiles]
-│   │   │
-│   │   └── contracts/                # Business contracts (12 docs)
-│   │       └── [12 contract documents]
-│   │
-│   ├── vector_db/                    # ChromaDB vector store (generated)
-│   │   └── [Generated after ingestion]
-│   │
-│   ├── experiments/                  # Jupyter notebooks for testing
-│   │   ├── experiment.ipynb
-│   │   └── vector_db/                # Experimental vector stores
-│   │
-│   └── evaluation/                   # RAG evaluation scripts
-│
-└── main.py                           # Simple entry point
+└── root-project/                      # Main application folder
+    ├── app.py                         # 🚀 Main Gradio web application (START HERE)
+    │
+    ├── implementation/                # Core RAG implementation
+    │   ├── ingest.py                  # Document ingestion & embedding creation
+    │   └── answer.py                  # RAG pipeline & question answering
+    │
+    ├── knowledge_base/                # 📚 Source documents (31 .md files)
+    │   ├── company/                   # Company information (4 docs)
+    │   │   ├── about.md
+    │   │   ├── careers.md
+    │   │   ├── culture.md
+    │   │   └── overview.md
+    │   │
+    │   ├── products/                  # Product documentation (5 docs)
+    │   │   ├── ClarityLens.md
+    │   │   ├── Continuum.md
+    │   │   ├── EchoSphere.md
+    │   │   ├── Guardian.md
+    │   │   └── SynapseEngine.md
+    │   │
+    │   ├── employees/                 # Employee profiles (10 docs)
+    │   │   ├── Gideon Cross.md
+    │   │   ├── Isolde Beaumont.md
+    │   │   ├── Jia Li.md
+    │   │   ├── Kaelen Vance.md
+    │   │   ├── Linnea Vega.md
+    │   │   ├── Orion Fletcher.md
+    │   │   ├── Ronan Dexter.md
+    │   │   ├── Seraphina Jones.md
+    │   │   ├── Silas Thorne.md
+    │   │   └── Tessa McRae.md
+    │   │
+    │   └── contracts/                 # Business contracts (12 docs)
+    │       ├── API Data License with Veridian Datafeeds for InsightIQ.md
+    │       ├── Cloud Services Agreement with Stratus Infrastructure for Hosting.md
+    │       ├── Co-Marketing Agreement with Orion CRM for SynapseChat Integration.md
+    │       ├── Consulting Agreement with Navigator Strategy for APAC GTM.md
+    │       ├── Data Processing Addendum with Zenith Financial Group for InsightIQ.md
+    │       ├── Hybrid MSA with Fusion Robotics for NexusFlow and CoreLLM.md
+    │       ├── Master Service Agreement with Momentum Machines for NexusFlow.md
+    │       ├── Master Service Agreement with Silverline Logistics for NexusFlow.md
+    │       ├── OEM Partnership Agreement with Quantum Leap AI for CoreLLM API.md
+    │       ├── Office Lease Agreement with Cityscape Realty for SF Headquarters.md
+    │       ├── Reseller Agreement with Catalyst Partners for EMEA Region.md
+    │       └── Statement of Work with Cygnus Security for Penetration Test.md
+    │
+    ├── experiments/                   # Jupyter notebooks for testing
+    │   └── experiment.ipynb           # RAG experimentation notebook
+    │
+    └── vector_db/                     # ⚠️ Auto-generated (gitignored)
+        └── [Created locally when you run ingest.py]
+
+Note: vector_db/ folders are auto-generated and not tracked in Git
 ```
 
 ---
