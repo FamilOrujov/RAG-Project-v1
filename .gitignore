@@ -9,3 +9,8 @@ wheels/
 # Virtual environments
 .venv
 .env
+
+# Vector databases (auto-generated)
+vector_db/
+**/vector_db/
+
