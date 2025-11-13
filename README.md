@@ -161,7 +161,6 @@ RAG-Project-v1/
 
 ### Prerequisites
 
-- **Python 3.13** or higher
 - **Git** (for cloning the repository)
 - **OpenAI API Key** OR **Ollama** installed locally (for local LLMs)
 
@@ -539,8 +538,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contacts
 
 - **Author**: Famil Orujov
-- **GitHub**: [@FamilOrujov](https://github.com/FamilOrujov)
-- **Project**: [RAG-Project-v1](https://github.com/FamilOrujov/RAG-Project-v1)
+- **LinkedIn**: [Famil Orujov](https://www.linkedin.com/in/famil-orujov/)
+- **Mail**: familorujov@gmail.com
 
 
 <div align="center">
