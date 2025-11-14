@@ -9,7 +9,7 @@
 
 **My Retrieval-Augmented Generation (RAG) system v1 for intelligent enterprise knowledge management**
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Architecture](#-architecture) • [Documentation](#-documentation)
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage)
 
 </div>
 
