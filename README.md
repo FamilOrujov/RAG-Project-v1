@@ -59,7 +59,7 @@
 
 ---
 
-## 🛠️ Technology Stack.
+## 🛠️ Technology Stack
 
 ### Core Technologies
 
