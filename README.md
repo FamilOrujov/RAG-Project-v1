@@ -37,7 +37,7 @@
 **RAG Project v1** is a production-ready Retrieval-Augmented Generation system built for **Innovatech Solutions**, demonstrating how AI can transform enterprise knowledge management. The system enables natural language queries over organizational data including company information, products, employees, and contracts.
 
 
-## ✨ Features.
+## ✨ Features
 
 ### Core Capabilities
 
