@@ -39,23 +39,7 @@
 
 ## ✨ Features
 
-### Core Capabilities
 
-- 🧠 **Intelligent Question Answering**: Natural language queries with context-aware responses
-- 🔍 **Semantic Search**: Find relevant information even with different phrasing
-- 💬 **Conversational Interface**: Multi-turn conversations with conversation history
-- 📄 **Source Attribution**: Every answer shows which documents it came from
-- 🎨 **Modern Web UI**: Beautiful Gradio interface with real-time responses
-- 🔒 **Local LLM Support**: Works with both OpenAI API and local models via Ollama
-
-### Technical Features
-
-- ⚡ **Fast Vector Search**: ChromaDB for efficient similarity search
-- 📦 **Modular Architecture**: Clean separation of ingestion, retrieval, and generation
-- 🔄 **Easy Knowledge Updates**: Re-index documents with a single command
-- 📊 **Chunk Overlap**: Smart text splitting preserves context
-- 🎯 **Configurable Retrieval**: Adjust number of retrieved documents (K parameter)
-- 🌐 **Multi-Source Knowledge**: Supports company info, products, employees, and contracts
 
 ---
 
