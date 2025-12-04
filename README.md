@@ -60,7 +60,7 @@
 
 
 
-## 📁 Project Structure.
+## 📁 Project Structure
 
 ```
 RAG-Project-v1/
