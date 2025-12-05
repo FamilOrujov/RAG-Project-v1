@@ -159,10 +159,10 @@ source .venv/bin/activate
 #### Using uv (Faster Alternative)
 ```bash
 uv venv
-uv pip install -r requirements.txt
+uv sync
 ```
 
-### Step 3: Install Dependencies
+### Step 3: Install Dependencies (if you're not using uv package manager)
 
 ```bash
 pip install -r requirements.txt
