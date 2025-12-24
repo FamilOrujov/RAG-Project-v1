@@ -11,7 +11,7 @@
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage)
 
-</div>
+</div>.
 
 ---
 
