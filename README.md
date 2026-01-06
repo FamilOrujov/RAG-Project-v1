@@ -43,7 +43,7 @@
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Core Technologies
 
@@ -60,7 +60,7 @@
 
 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 RAG-Project-v1/
@@ -129,7 +129,7 @@ Note: vector_db/ folders are auto-generated and not tracked in Git
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
@@ -195,7 +195,7 @@ ollama pull llama3.1:8b
 
 ---
 
-## 🎯 Usage
+## Usage
 
 ### Quick Start
 
@@ -242,7 +242,7 @@ The Gradio interface will open in your browser at `http://localhost:7860`
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### RAG Pipeline Overview
 
