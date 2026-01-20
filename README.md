@@ -71,7 +71,7 @@ RAG-Project-v1/
 ├── .gitignore                         # Git ignore rules
 ├── .env                               # Environment variables (create this)
 │
-└── root-project/                      # Main application folder
+└── src/                               # Main application folder
     ├── app.py                         # Main Gradio web application (START HERE)
     │
     ├── implementation/                # Core RAG implementation
@@ -204,7 +204,7 @@ ollama pull llama3.1:8b
 This step processes all documents in the `knowledge_base/` folder, creates embeddings, and stores them in ChromaDB.
 
 ```bash
-cd root-project
+cd src
 python implementation/ingest.py
 ```
 
@@ -284,7 +284,7 @@ The Gradio interface will open in your browser at `http://localhost:7860`
    - Chunk size: 500 characters
    - Overlap: 200 characters (preserves context)
 4. **Embedding Creation**: Uses `all-MiniLM-L6-v2` (384 dimensions)
-5. **Vector Storage**: Stores in ChromaDB at `root-project/vector_db/`
+5. **Vector Storage**: Stores in ChromaDB at `src/vector_db/`
 
 **Key Functions**:
 - `fetch_documents()`: Loads all markdown files with metadata
@@ -401,7 +401,7 @@ embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 The `experiments/` folder contains Jupyter notebooks for testing:
 
 ```bash
-cd root-project/experiments
+cd src/experiments
 jupyter notebook experiment.ipynb
 ```
 
