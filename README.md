@@ -40,7 +40,12 @@
    - 5.1 [LLM Selection](#llm-selection)
    - 5.2 [Retrieval Parameters](#retrieval-parameters)
    - 5.3 [Chunking Strategy](#chunking-strategy)
-6. [Knowledge Base](#knowledge-base)
+6. [Testing](#testing)
+   - 6.1 [Test Architecture](#test-architecture)
+   - 6.2 [Running Tests](#running-tests)
+   - 6.3 [Continuous Integration](#continuous-integration)
+7. [Knowledge Base](#knowledge-base)
+
 
 ## Overview
 
@@ -74,6 +79,17 @@ langchain-rag-project/
 ├── .gitignore
 ├── .env
 │
+├── .github/
+│   └── workflows/
+│       ├── ci.yml
+│       └── lint.yml
+│
+├── tests/
+│   ├── conftest.py
+│   ├── test_ingest.py
+│   ├── test_answer.py
+│   └── test_integration.py
+│
 └── src/
     ├── app.py
     │
@@ -92,6 +108,7 @@ langchain-rag-project/
     │
     └── vector_db/
 ```
+
 
 ### Core Components
 
@@ -324,6 +341,57 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=200
 ```
 
 If you modify these values, you must re run the ingestion script to rebuild the vector database with the new chunk sizes.
+
+## Testing
+
+I believe production ready code needs proper test coverage, not as an afterthought but as a core part of the development process. The test suite validates both individual components and the full RAG pipeline, ensuring that changes to one part of the system do not break others.
+
+### Test Architecture
+
+The test suite is organized into three layers that mirror the testing pyramid. Unit tests cover individual functions in isolation, integration tests verify that components work together correctly, and the full pipeline tests ensure end to end functionality.
+
+| Test File | Tests | Coverage |
+|-----------|-------|----------|
+| test_ingest.py | 11 | Document loading, chunking, knowledge base structure |
+| test_answer.py | 13 | Context retrieval, question combination, prompt configuration |
+| test_integration.py | 9 | Full ingestion pipeline, vectorstore operations, retrieval quality |
+
+The test suite runs against the actual knowledge base and real ChromaDB instances rather than mocked dependencies. I made this choice deliberately because mocked tests can pass while the real system fails, which defeats the purpose of testing. The trade off is slightly longer test execution times, but 33 tests completing in under 45 seconds is acceptable for the confidence it provides.
+
+Fixtures in `conftest.py` handle common setup like creating temporary knowledge bases and sample documents. Each test class groups related tests together, making it easy to run specific subsets when debugging a particular component.
+
+### Running Tests
+
+To run the full test suite with pytest:
+
+```bash
+uv run pytest tests/ -v
+```
+
+For coverage reporting that shows which lines of code are exercised:
+
+```bash
+uv run pytest tests/ --cov=src --cov-report=html
+```
+
+This generates an HTML report in `htmlcov/` that you can open in a browser to see exactly which code paths your tests cover. I aim for high coverage on the core modules while accepting that some UI code in `app.py` is better tested manually.
+
+To run a specific test file or test class:
+
+```bash
+uv run pytest tests/test_ingest.py -v
+uv run pytest tests/test_answer.py::TestFetchContext -v
+```
+
+### Continuous Integration
+
+The project includes GitHub Actions workflows that run automatically on every push and pull request. The CI pipeline ensures that code changes do not introduce regressions before they reach the main branch.
+
+**CI Workflow** runs the full test suite with coverage reporting. It sets up Python 3.13, installs dependencies using uv, runs the ingestion script to populate the vector database, and executes all tests. Failed tests block the pull request from merging.
+
+**Lint Workflow** runs ruff for code quality checks. It catches common Python issues like unused imports, undefined variables, and formatting inconsistencies. I configured ruff to be strict enough to catch real problems without being annoying about stylistic preferences.
+
+Both workflows use caching to speed up subsequent runs. The first run takes a few minutes to install dependencies, but subsequent runs reuse the cached environment and complete much faster.
 
 ## Knowledge Base
 
