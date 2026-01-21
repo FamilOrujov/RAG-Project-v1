@@ -387,6 +387,5 @@ The knowledge base contains 31 markdown documents organized into four categories
 | Employees | 10 | Profile pages with roles and responsibilities |
 | Contracts | 12 | Business agreements, MSAs, partnerships |
 
-All documents are synthetic data generated specifically for this project. They provide a realistic enterprise knowledge base for testing RAG capabilities without any privacy concerns.
-
-To add your own documents, simply place markdown files in the appropriate subdirectory under `src/knowledge_base/` and re run the ingestion script. The system automatically detects document type based on folder name and adds it as metadata for potential filtering.
+> [!NOTE]
+> All documents are synthetic data generated specifically for this project. They provide a realistic enterprise knowledge base for testing RAG capabilities without any privacy concerns. To add your own documents, simply place markdown files in the appropriate subdirectory under `src/knowledge_base/` and re run the ingestion script. The system automatically detects document type based on folder name and adds it as metadata for potential filtering.
