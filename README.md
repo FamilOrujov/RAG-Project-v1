@@ -59,9 +59,9 @@ Retrieval Augmented Generation solves this by giving the LLM access to external 
 
 ### Why I Built This
 
-I built this project to move beyond theoretical understanding of RAG into practical implementation. Most tutorials show simplified examples with a few lines of code, but real systems need to handle document ingestion pipelines, vector database management, prompt engineering, conversation history, and user interfaces. I wanted to understand each of these components deeply, so I built them from scratch using LangChain as the orchestration layer rather than relying on high level abstractions that hide the complexity.
+I built this project because most RAG implementations I encountered were either too simplistic or too abstracted. Real systems need to handle document ingestion pipelines, vector database management, prompt engineering, conversation history, and user interfaces. I built each component from scratch using LangChain as the orchestration layer, giving me full control over retrieval parameters, chunking strategies, and prompt construction.
 
-The fictional company Innovatech Solutions serves as a realistic test case with 31 markdown documents covering company information, product specifications, employee profiles, and business contracts. This synthetic dataset, which I generated using frontier LLMs, provides enough variety to test the system thoroughly while being small enough to iterate quickly during development.
+The fictional company Innovatech Solutions serves as a realistic test case with 31 markdown documents covering company information, product specifications, employee profiles, and business contracts. This synthetic dataset provides enough variety to validate the system across different document types and query patterns.
 
 ## Project Structure
 
@@ -142,7 +142,7 @@ The response streams back to the Gradio interface along with the source document
 
 ### Design Decisions
 
-**Why ChromaDB over other vector databases?** I considered Pinecone, Weaviate, and Qdrant, but ChromaDB won for this project because it runs entirely locally with no external dependencies, stores data persistently by default, and has excellent LangChain integration. For a learning project, I did not want to deal with API keys, usage limits, or cloud infrastructure.
+**Why ChromaDB over other vector databases?** I considered Pinecone, Weaviate, and Qdrant, but ChromaDB won for this project because it runs entirely locally with no external dependencies, stores data persistently by default, and has excellent LangChain integration. This eliminates the need for API keys, usage limits, or cloud infrastructure, making the system fully self contained and easy to deploy anywhere.
 
 **Why HuggingFace embeddings over OpenAI?** The all-MiniLM-L6-v2 model produces high quality 384 dimensional embeddings while running entirely on CPU. This eliminates API costs and latency, making the system completely self contained. For production with GPU acceleration, I would consider all-mpnet-base-v2 which has higher quality at the cost of speed.
 
