@@ -10,6 +10,9 @@
 <a href="https://huggingface.co/"><img src="https://img.shields.io/badge/HuggingFace-Embeddings-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="HuggingFace"></a>
 <a href="https://ollama.ai/"><img src="https://img.shields.io/badge/Ollama-Local_LLM-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama"></a>
 <a href="https://www.gradio.app/"><img src="https://img.shields.io/badge/Gradio-UI-F97316?style=for-the-badge&logo=gradio&logoColor=white" alt="Gradio"></a>
+<a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"></a>
+
+<img src="assets/innovatech_m.gif" alt="Demo" width="800">
 
 *A document question answering application built to demonstrate how retrieval augmented generation works in practice. The system ingests markdown documents about a fictional company called Innovatech Solutions, chunks them into semantic pieces, creates vector embeddings using HuggingFace transformers, stores them in ChromaDB, and retrieves relevant context at query time to augment LLM responses. The focus was on building something production ready with clean architecture and proper separation between ingestion, retrieval, and generation components.*
 
@@ -28,11 +31,11 @@
    - 3.1 [Pipeline Overview](#pipeline-overview)
    - 3.2 [Data Flow](#data-flow)
    - 3.3 [Design Decisions](#design-decisions)
-4. [Quick Start](#quick-start)
-   - 4.1 [Prerequisites](#prerequisites)
-   - 4.2 [Installation with uv](#installation-with-uv)
+4. [Installation](#installation)
+   - 4.1 [Choose Your Path](#choose-your-path)
+   - 4.2 [Installation with uv (Recommended)](#installation-with-uv-recommended)
    - 4.3 [Installation with pip](#installation-with-pip)
-   - 4.4 [Running the Application](#running-the-application)
+   - 4.4 [Docker Installation](#docker-installation)
 5. [Configuration](#configuration)
    - 5.1 [LLM Selection](#llm-selection)
    - 5.2 [Retrieval Parameters](#retrieval-parameters)
@@ -62,7 +65,10 @@ The fictional company Innovatech Solutions serves as a realistic test case with 
 ```
 langchain-rag-project/
 ├── README.md
+├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
+├── requirements-docker.txt
 ├── pyproject.toml
 ├── uv.lock
 ├── .gitignore
@@ -149,23 +155,36 @@ The response streams back to the Gradio interface along with the source document
 
 **Why force CPU for embeddings?** I discovered that PyTorch CUDA support requires specific GPU architectures. Older GPUs like the GTX 1060 have CUDA capability 6.1, but modern PyTorch builds require 7.0 or higher. Rather than creating installation friction, I configured embeddings to run on CPU by default, which is fast enough for this workload.
 
-## Quick Start
+## Installation
 
-### Prerequisites
+### Choose Your Path
 
-You need Python 3.13 or higher installed on your system. You also need either an OpenAI API key or Ollama running locally for LLM inference. I recommend Ollama because it gives you a completely free, local setup.
+I provide three installation methods depending on your preferences and setup. Each has its trade offs, and I want to be transparent about what you are getting into with each approach.
 
-### Installation with uv
+| Method | Build Time | Best For | Prerequisites |
+|--------|------------|----------|---------------|
+| **uv (Recommended)** | ~3 min | Development, full CUDA support | Python 3.13+, Ollama |
+| **pip** | ~5 min | Traditional Python workflow | Python 3.13+, Ollama |
+| **Docker** | ~12 min | Isolated environment, quick demo | Docker Desktop |
 
-uv is a fast Python package manager written in Rust. It handles virtual environments automatically and installs dependencies 10 to 100 times faster than pip. I use it for all my projects now.
+**A note on Docker and CUDA:** The Docker image uses CPU only PyTorch to keep the image size manageable (~3GB instead of ~12GB) and build times reasonable (~12 minutes instead of ~50 minutes). If you need GPU acceleration for embeddings, I recommend the local installation with uv where you can install the full CUDA enabled PyTorch. For most use cases, CPU embeddings are fast enough since embedding generation is not the bottleneck, the LLM inference is.
 
-Install uv if you do not have it:
+### Installation with uv (Recommended)
+
+This is my recommended approach for most users. uv is a fast Python package manager written in Rust that handles virtual environments automatically and installs dependencies 10 to 100 times faster than pip. I use it for all my projects now, and once you try it you probably will too.
+
+**Prerequisites:**
+- Python 3.13 or higher
+- Ollama installed with Gemma3 model pulled
+- NVIDIA GPU with CUDA 11.8+ (optional, for GPU acceleration)
+
+**Step 1: Install uv**
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Clone the repository and install dependencies:
+**Step 2: Clone and install dependencies**
 
 ```bash
 git clone https://github.com/FamilOrujov/langchain-rag-project.git
@@ -174,26 +193,57 @@ uv venv
 uv sync
 ```
 
-With uv, you do not need to activate the virtual environment manually. Just prefix commands with `uv run`:
+This installs the full dependency set including CUDA enabled PyTorch if your system supports it. The `uv.lock` file ensures reproducible installs across different machines.
+
+**Step 3: Pull the Ollama model**
+
+```bash
+ollama pull gemma3:4b
+```
+
+**Step 4: Ingest the knowledge base**
 
 ```bash
 uv run python src/implementation/ingest.py
+```
+
+You should see output confirming 199 vectors were created.
+
+**Step 5: Launch the application**
+
+```bash
 uv run python src/app.py
 ```
 
+The Gradio interface opens at http://localhost:7860.
+
+**Why uv over pip?** uv is a Rust implementation of pip that is 10 to 100 times faster for dependency resolution and installation. It also handles virtual environments transparently, so you never have to remember to activate anything. Just prefix commands with `uv run` and it handles the rest.
+
 ### Installation with pip
 
-If you prefer the traditional approach:
+If you prefer the traditional Python workflow or cannot install uv for some reason, pip works fine. The only downside is slower installation and manual virtual environment management.
+
+**Prerequisites:**
+- Python 3.13 or higher
+- Ollama installed with Gemma3 model pulled
+
+**Step 1: Clone and set up environment**
 
 ```bash
 git clone https://github.com/FamilOrujov/langchain-rag-project.git
 cd langchain-rag-project
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Then run the application:
+**Step 2: Pull the Ollama model**
+
+```bash
+ollama pull gemma3:4b
+```
+
+**Step 3: Ingest and run**
 
 ```bash
 cd src
@@ -201,28 +251,43 @@ python implementation/ingest.py
 python app.py
 ```
 
-### Running the Application
+**Remember:** You need to activate the virtual environment every time you open a new terminal session before running commands. With uv, this is handled automatically.
 
-First, ingest the documents to create the vector database:
+### Docker Installation
 
-```bash
-uv run python src/implementation/ingest.py
-```
+If you prefer containerized environments or want a quick demo without installing Python dependencies on your system, Docker is available. I optimized the Docker build to use CPU only PyTorch, which dramatically reduces the image size and build time. The trade off is that embedding generation runs on CPU instead of GPU, but for a knowledge base of this size the difference is negligible.
 
-You should see output like:
+**Prerequisites:**
+- Docker Desktop installed and running
+- Ollama running on your host machine with Gemma3 pulled
 
-```
-There are 199 vectors with 384 dimensions in the vector store
-Ingestion complete
-```
-
-Then launch the web interface:
+**Step 1: Clone and build**
 
 ```bash
-uv run python src/app.py
+git clone https://github.com/FamilOrujov/langchain-rag-project.git
+cd langchain-rag-project
+docker compose build
 ```
 
-The Gradio interface will open in your browser at http://localhost:7860. Try questions like "What products does Innovatech Solutions offer?" or "Tell me about Seraphina Jones" to see the RAG system in action.
+The first build takes around 12 minutes as it downloads Python dependencies and pre ingests the knowledge base. Subsequent builds are cached and take seconds.
+
+**Step 2: Start the container**
+
+```bash
+docker compose up
+```
+
+**Step 3: Access the application**
+
+Open http://localhost:7860 in your browser. The knowledge base is already ingested during the build process, so you can start asking questions immediately.
+
+**Note about Ollama:** The Docker container needs to communicate with Ollama running on your host. On Linux, this works automatically. On macOS and Windows, you may need to update `src/implementation/answer.py` to use `host.docker.internal` instead of `localhost` for the Ollama base URL, or configure your network settings appropriately.
+
+**Stopping the container:**
+
+```bash
+docker compose down
+```
 
 ## Configuration
 
