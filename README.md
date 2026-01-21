@@ -14,7 +14,7 @@
 
 <img src="assets/innovatech_m.gif" alt="Demo" width="800">
 
-*A document question answering application built to demonstrate how retrieval augmented generation works in practice. The system ingests markdown documents about a fictional company called Innovatech Solutions, chunks them into semantic pieces, creates vector embeddings using HuggingFace transformers, stores them in ChromaDB, and retrieves relevant context at query time to augment LLM responses. The focus was on building something production ready with clean architecture and proper separation between ingestion, retrieval, and generation components.*
+*Document question answering Knowledge Base RAG application built to demonstrate how retrieval augmented generation works in practice. The system ingests markdown documents about a fictional company called Innovatech Solutions, chunks them into semantic pieces, creates vector embeddings using HuggingFace transformers, stores them in ChromaDB, and retrieves relevant context at query time to augment LLM responses. The focus was on building something production ready with clean architecture and proper separation between ingestion, retrieval, and generation components.*
 
 </div>
 
