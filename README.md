@@ -128,27 +128,7 @@ langchain-rag-project/
 
 The system operates in two distinct phases. The ingestion phase runs once or whenever the knowledge base changes, processing documents into vector embeddings. The query phase runs in real time, handling user questions by retrieving relevant context and generating responses.
 
-```
-INGESTION PHASE
-
-Documents  ──>  Text Splitter  ──>  Embedding Model  ──>  ChromaDB
-   │                 │                    │                  │
-   │            500 chars            all-MiniLM-L6-v2    Persistent
-   │            200 overlap          384 dimensions       Storage
-   │
-   └── 31 markdown files across 4 categories
-
-
-QUERY PHASE
-
-User Query  ──>  Embedding  ──>  Vector Search  ──>  Top K Chunks
-                                                          │
-                                                          v
-Response  <──  LLM Generation  <──  Prompt Construction
-   │                │                      │
-   │           Gemma3 4B              Context + History
-   │           via Ollama             + System Prompt
-```
+<img src="assets/system_architecture.png" alt="System Architecture" width="800">
 
 ### Data Flow
 
