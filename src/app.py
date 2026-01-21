@@ -16,19 +16,19 @@ def format_context(context):
     </div>
 </div>
 """
-    
+
     result = """
 <div style="padding: 10px;">
     <h3 style="color: #6366f1; margin-bottom: 20px; border-bottom: 2px solid #6366f1; padding-bottom: 10px;">
         Retrieved Documents
     </h3>
 """
-    
+
     for i, doc in enumerate(context, 1):
-        source = doc.metadata.get('source', 'Unknown')
-        source_name = source.split('/')[-1] if '/' in source else source
-        doc_type = doc.metadata.get('doc_type', 'document')
-        
+        source = doc.metadata.get("source", "Unknown")
+        source_name = source.split("/")[-1] if "/" in source else source
+        doc_type = doc.metadata.get("doc_type", "document")
+
         result += f"""
 <div style="background: linear-gradient(135deg, #1e1e2e 0%, #2d2d3d 100%); 
             border-radius: 12px; 
@@ -52,7 +52,7 @@ def format_context(context):
     </div>
 </div>
 """
-    
+
     result += "</div>"
     return result
 
@@ -60,7 +60,7 @@ def format_context(context):
 def chat(history):
     if not history:
         return history, format_context([])
-    
+
     last_message = history[-1]["content"]
     prior = history[:-1]
     answer, context = answer_question(last_message, prior)
@@ -168,7 +168,7 @@ def main():
         primary_hue="indigo",
         secondary_hue="purple",
         neutral_hue="slate",
-        font=["Inter", "system-ui", "sans-serif"]
+        font=["Inter", "system-ui", "sans-serif"],
     ).set(
         body_background_fill="#0f0f1a",
         body_background_fill_dark="#0f0f1a",
@@ -191,7 +191,6 @@ def main():
     )
 
     with gr.Blocks(title="Innovatech Solutions Assistant", theme=theme, css=custom_css) as ui:
-        
         gr.HTML("""
         <div class="header-container">
             <div class="header-title">Innovatech Solutions Assistant</div>
@@ -209,7 +208,7 @@ def main():
                     avatar_images=(None, "https://api.dicebear.com/7.x/bottts/svg?seed=innovatech"),
                     bubble_full_width=False,
                 )
-                
+
                 with gr.Row():
                     message = gr.Textbox(
                         placeholder="Ask anything about company",
@@ -233,7 +232,7 @@ def main():
         message.submit(
             put_message_in_chatbot, inputs=[message, chatbot], outputs=[message, chatbot]
         ).then(chat, inputs=chatbot, outputs=[chatbot, context_panel])
-        
+
         submit_btn.click(
             put_message_in_chatbot, inputs=[message, chatbot], outputs=[message, chatbot]
         ).then(chat, inputs=chatbot, outputs=[chatbot, context_panel])

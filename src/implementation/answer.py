@@ -12,11 +12,8 @@ load_dotenv(override=True)
 MODEL = "gpt-4.1-nano"
 DB_NAME = str(Path(__file__).parent.parent / "vector_db")
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="all-MiniLM-L6-v2",
-    model_kwargs={"device": "cpu"}
-)
-RETRIEVAL_K = 10 # How many chunks get included, get retrieved and included in the prompt
+embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2", model_kwargs={"device": "cpu"})
+RETRIEVAL_K = 10  # How many chunks get included, get retrieved and included in the prompt
 
 SYSTEM_PROMPT = """
 You are a knowledgeable, friendly assistant representing the company Innovatech Solutions.
@@ -31,10 +28,13 @@ vectorstore = Chroma(persist_directory=DB_NAME, embedding_function=embeddings)
 retriever = vectorstore.as_retriever()
 
 # Use it if you want to use the OpenAI API
-#llm = ChatOpenAI(temperature=0, model_name=MODEL)
+# llm = ChatOpenAI(temperature=0, model_name=MODEL)
 
 # Use this if you want to use the local LLM via Ollama
-llm = ChatOpenAI(temperature=0.7, model_name='gemma3:4b', base_url='http://localhost:11434/v1', api_key='ollama')
+llm = ChatOpenAI(
+    temperature=0.7, model_name="gemma3:4b", base_url="http://localhost:11434/v1", api_key="ollama"
+)
+
 
 def fetch_context(question: str) -> list[Document]:
     """
